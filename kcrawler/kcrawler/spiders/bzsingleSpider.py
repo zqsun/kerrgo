@@ -26,6 +26,7 @@ class bzsingleSpider(Spider):
             item = KcrawlerItem()
             item['title'] = li.xpath('span[2]/b[@class="title"]/text()').extract()
             item['link'] = li.xpath('@href').extract()
+            item['source'] = 'bizbuysell'
             # item['url'] = li.xpath('a/@href').extract()
             # item['description'] = li.xpath('text()').re('-\s[^\n]*\\r')
             items.append(item)

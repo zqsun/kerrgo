@@ -16,4 +16,5 @@ class KcrawlerItem(scrapy.Item):
     location = scrapy.Field()
     # price = scrapy.Field()
     desc = scrapy.Field()
+    source = scrapy.Field()
     pass
