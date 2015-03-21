@@ -12,6 +12,6 @@ BOT_NAME = 'kcrawler'
 
 SPIDER_MODULES = ['kcrawler.spiders']
 NEWSPIDER_MODULE = 'kcrawler.spiders'
-
+USER_AGENT = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'kcrawler (+http://www.yourdomain.com)'
