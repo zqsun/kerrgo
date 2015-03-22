@@ -33,7 +33,9 @@ class bzhealthSpider(CrawlSpider):
             item = KcrawlerItem()
             item['source'] = u'bizbuysell'
             item['title'] = li.xpath('span[2]/b[@class="title"]/text()').extract()
-            item['link'] = li.xpath('@href').extract()
+            link = li.xpath('@href').extract()
+            link[0] = link[0][0:link[0].index('/?d=')] #remove the tails of link
+            item['link'] = link
             location = li.xpath('string(span[2]/p[@class="info"])').extract()
             location[0] = location[0].strip(' \t\n\r')
             # item['location'] = li.xpath('span[2]/p[@class="info"]/text()').extract()
