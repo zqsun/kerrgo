@@ -34,8 +34,16 @@ class bzhealthSpider(CrawlSpider):
             item['source'] = u'bizbuysell'
             item['title'] = li.xpath('span[2]/b[@class="title"]/text()').extract()
             item['link'] = li.xpath('@href').extract()
-            item['location'] = li.xpath('span[2]/p[@class="info"]/b/text()').extract()
+            location = li.xpath('string(span[2]/p[@class="info"])').extract()
+            location[0] = location[0].strip(' \t\n\r')
+            # item['location'] = li.xpath('span[2]/p[@class="info"]/text()').extract()
+            item['location'] = location
+            # if(item['location']==[]):
+            #     # location = 
+            #     # location[0] = location[0].strip(' \t\n\r')
+            #     item['location'] = li.xpath('span[2]/p[@class="info"]/text()').extract()
             item['desc'] = li.xpath('span[2]/p[@class="desc"]/text()').extract()
+
             # item['url'] = li.xpath('a/@href').extract()
             # item['description'] = li.xpath('text()').re('-\s[^\n]*\\r')
             items.append(item)
