@@ -20,11 +20,11 @@ class bzhealthSpider(CrawlSpider):
     # )
 
     rules = (
-        Rule(LxmlLinkExtractor(allow=('/health-care-companies-for-sale'),restrict_xpaths=('//div[@class="pagination"]/ul/li/a[@title="Next Page"]')),callback='parse_items',follow=True),
+        Rule(LxmlLinkExtractor(allow=('/health-care-companies-for-sale'),restrict_xpaths=('//div[@class="pagination"]/ul/li/a[@title="Next Page"]')),callback='parse_start_url',follow=True),
         # Rule(LxmlLinkExtractor(allow=('/health-care-companies-for-sale')),callback='parse_item'),
     )
 
-    def parse_items(self, response):
+    def parse_start_url(self, response):
         sel = Selector(response)
         lists = sel.xpath('//a[contains(@id,"List") and not(contains(@id,"ListNumber"))]')
         items = []
