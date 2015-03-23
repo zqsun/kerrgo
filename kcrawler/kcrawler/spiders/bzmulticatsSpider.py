@@ -5,8 +5,8 @@ from scrapy.selector import Selector
 from scrapy.contrib.linkextractors.lxmlhtml import LxmlLinkExtractor
 from kcrawler.items import KcrawlerItem
 
-class bzhealthSpider(CrawlSpider):
-    name = 'bzhealthSpider'
+class bzmulticatsSpider(CrawlSpider):
+    name = 'bzmulticatsSpider'
     allowed_domains = ['bizbuysell.com']
     start_urls = ['http://www.bizbuysell.com/health-care-companies-for-sale/',
                 'http://www.bizbuysell.com/agriculture-businesses-for-sale/'
@@ -30,7 +30,8 @@ class bzhealthSpider(CrawlSpider):
         sel = Selector(response)
         lists = sel.xpath('//a[contains(@id,"List") and not(contains(@id,"ListNumber"))]')
         items = []
-
+        category = self.category_det(response.url)
+        # print response.url
         for li in lists:
             item = KcrawlerItem()
             item['source'] = u'bizbuysell'
@@ -42,7 +43,16 @@ class bzhealthSpider(CrawlSpider):
             location[0] = location[0].strip(' \t\n\r') #remove space, /r,/n
             item['location'] = location
             item['desc'] = li.xpath('span[2]/p[@class="desc"]/text()').extract()
+            item['category'] = category
             items.append(item)
-            print item ['title']
+            # print item ['title']
 
         return items
+
+    # Determine the category based on the response's url
+    def category_det(dummy,url):
+        if ('health-care' in url):
+            return u'health'
+        elif('agriculture' in url):
+            return u'agriculture'
+
