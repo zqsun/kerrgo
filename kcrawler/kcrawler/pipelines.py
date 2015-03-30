@@ -27,7 +27,7 @@ class KcrawlerPipeline(object):
 class MySQLStorePipeline(object):
 
   	def __init__(self):
-  		self.conn = MySQLdb.connect(host='localhost',user='kerrgo',passwd='123456',db='kerrgo')
+  		self.conn = MySQLdb.connect(host='localhost',user='kerrgo',passwd='123456',db='kerrgo',charset='utf8')
   		self.cursor = self.conn.cursor()
   	def process_item(self,item,spider):
   		try:
