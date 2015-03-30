@@ -34,7 +34,7 @@ class bzmulticatsSpider(CrawlSpider):
         # print response.url
         for li in lists:
             item = KcrawlerItem()
-            item['source'] = u'bizbuysell'
+            item['source'] = 'bizbuysell'.encode(encoding='UTF-8',errors='strict')
             item['title'] = li.xpath('span[2]/b[@class="title"]/text()').extract()
             link = li.xpath('@href').extract()
             link[0] = link[0][0:link[0].index('/?d=')] #remove the tails of link
@@ -42,7 +42,13 @@ class bzmulticatsSpider(CrawlSpider):
             location = li.xpath('string(span[2]/p[@class="info"])').extract()
             location[0] = location[0].strip(' \t\n\r') #remove space, /r,/n
             item['location'] = location
-            item['desc'] = li.xpath('span[2]/p[@class="desc"]/text()').extract()
+            desc = li.xpath('span[2]/p[@class="desc"]/text()').extract()
+            if len(desc):
+                desc = desc[0].strip(' \t\n\r') #remove space, /r,/n
+                desc = desc.encode(encoding='UTF-8',errors='strict')
+            else:
+                desc = ""
+            item['desc'] = desc
             item['category'] = category
             items.append(item)
             # print item ['title']
@@ -52,7 +58,7 @@ class bzmulticatsSpider(CrawlSpider):
     # Determine the category based on the response's url
     def category_det(dummy,url):
         if ('health-care' in url):
-            return u'health'
+            return u'health'.encode(encoding='UTF-8',errors='strict')
         elif('agriculture' in url):
-            return u'agriculture'
+            return u'agriculture'.encode(encoding='UTF-8',errors='strict')
 
