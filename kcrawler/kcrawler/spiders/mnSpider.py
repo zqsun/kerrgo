@@ -8,8 +8,9 @@ from kcrawler.items import KcrawlerItem
 class mnSpider(CrawlSpider):
     name = 'mnSpider'
     allowed_domains = ['mergernetwork.com']
-    start_urls = ['http://www.mergernetwork.com/index.cfm/fuseaction/browseBFS.search/index.htm?isSubmitted=true&method=SearchBar&resetSearch=true&bc_label=Quick+Search&bc_url=%2Fbuy-a-business-for-sale&indID=14',
-                'http://www.mergernetwork.com/index.cfm/fuseaction/browseBFS.search/index.htm?isSubmitted=true&method=SearchBar&resetSearch=true&bc_label=Quick+Search&bc_url=%2Fbuy-a-business-for-sale&indID=8'
+    start_urls = [
+                'http://www.mergernetwork.com/index.cfm/fuseaction/browseBFS.search/index.htm?isSubmitted=true&method=SearchBar&resetSearch=true&bc_label=Quick+Search&bc_url=%2Fbuy-a-business-for-sale&indID=14',
+                # 'http://www.mergernetwork.com/index.cfm/fuseaction/browseBFS.search/index.htm?isSubmitted=true&method=SearchBar&resetSearch=true&bc_label=Quick+Search&bc_url=%2Fbuy-a-business-for-sale&indID=8'
     ]
 
     # rules = (
@@ -34,7 +35,7 @@ class mnSpider(CrawlSpider):
         # print response.url
         for li in lists:
             item = KcrawlerItem()
-            item['source'] = u'mergernetwork'
+            item['source'] = 'mergernetwork'
             item['title'] = li.xpath('h3/a/text()').extract()
             # link = li.xpath('h3/a/@href').extract()
             # link[0] = link[0][0:link[0].index('/?d=')] #remove the tails of link
@@ -54,7 +55,7 @@ class mnSpider(CrawlSpider):
     # Determine the category based on the industry tag
     def category_det(dummy,tag):
         if ('Health Care' in tag):
-            return u'health'
+            return 'health'.encode(encoding='UTF-8',errors='strict')
         elif('Agriculture' in tag):
-            return u'agriculture'
+            return 'agriculture'.encode(encoding='UTF-8',errors='strict')
 
