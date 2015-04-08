@@ -9,8 +9,15 @@ class mnSpider(CrawlSpider):
     name = 'mnSpider'
     allowed_domains = ['mergernetwork.com']
     start_urls = [
-                'http://www.mergernetwork.com/index.cfm/fuseaction/browseBFS.search/index.htm?isSubmitted=true&method=SearchBar&resetSearch=true&bc_label=Quick+Search&bc_url=%2Fbuy-a-business-for-sale&indID=14',
-                # 'http://www.mergernetwork.com/index.cfm/fuseaction/browseBFS.search/index.htm?isSubmitted=true&method=SearchBar&resetSearch=true&bc_label=Quick+Search&bc_url=%2Fbuy-a-business-for-sale&indID=8'
+                # 'http://www.mergernetwork.com/index.cfm/fuseaction/browseBFS.search/index.htm?isSubmitted=true&method=SearchBar&resetSearch=true&bc_label=Quick+Search&bc_url=%2Fbuy-a-business-for-sale&indID=14', #health
+                # 'http://www.mergernetwork.com/index.cfm/fuseaction/browseBFS.search/index.htm?isSubmitted=true&method=SearchBar&resetSearch=true&bc_label=Quick+Search&bc_url=%2Fbuy-a-business-for-sale&indID=8' #Argricuture
+                # 'http://www.mergernetwork.com/index.cfm/fuseaction/browseBFS.search/index.htm?isSubmitted=true&method=SearchBar&resetSearch=true&bc_label=Quick+Search&bc_url=%2Fbuy-a-business-for-sale&indID=13'  #Internet
+                # 'http://www.mergernetwork.com/index.cfm/fuseaction/browseBFS.search/index.htm?isSubmitted=true&method=SearchBar&resetSearch=true&bc_label=Quick+Search&bc_url=%2Fbuy-a-business-for-sale&indID=1' #Manufacturing
+                # 'http://www.mergernetwork.com/index.cfm/fuseaction/browseBFS.search/index.htm?isSubmitted=true&method=SearchBar&resetSearch=true&bc_label=Quick+Search&bc_url=%2Fbuy-a-business-for-sale&indID=7' #Mining
+                # 'http://www.mergernetwork.com/index.cfm/fuseaction/browseBFS.search/index.htm?isSubmitted=true&method=SearchBar&resetSearch=true&bc_label=Quick+Search&bc_url=%2Fbuy-a-business-for-sale&indID=3' #Retail
+                # 'http://www.mergernetwork.com/index.cfm/fuseaction/browseBFS.search/index.htm?isSubmitted=true&method=SearchBar&resetSearch=true&bc_label=Quick+Search&bc_url=%2Fbuy-a-business-for-sale&indID=12'  #Construction 
+                # 'http://www.mergernetwork.com/index.cfm/fuseaction/browseBFS.search/index.htm?isSubmitted=true&method=SearchBar&resetSearch=true&bc_label=Quick+Search&bc_url=%2Fbuy-a-business-for-sale&indID=2'  #Wholesale
+                'http://www.mergernetwork.com/index.cfm/fuseaction/browseBFS.search/index.htm?isSubmitted=true&method=SearchBar&resetSearch=true&bc_label=Quick+Search&bc_url=%2Fbuy-a-business-for-sale&indID=5'  #Real Estate
     ]
 
     # rules = (
@@ -23,7 +30,7 @@ class mnSpider(CrawlSpider):
     # )
 
     rules = (
-        Rule(LxmlLinkExtractor(allow=(''),restrict_xpaths=('//div[@id="nextprev" and @class="noprint"]/table/tr/td[3]/a')),callback='parse_start_url',follow=True),
+        Rule(LxmlLinkExtractor(allow=(''),restrict_xpaths=('//div[@id="nextprev" ]//td[@style="text-align:right;"]')),callback='parse_start_url',follow=True),
         # Rule(LxmlLinkExtractor(allow=('/health-care-companies-for-sale')),callback='parse_item'),
     )
 
@@ -58,4 +65,18 @@ class mnSpider(CrawlSpider):
             return 'health'.encode(encoding='UTF-8',errors='strict')
         elif('Agriculture' in tag):
             return 'agriculture'.encode(encoding='UTF-8',errors='strict')
+        elif('Information' in tag):
+            return 'internet'.encode(encoding='UTF-8',errors='strict')
+        elif('Manufacturing' in tag):
+            return 'manufacturing'.encode(encoding='UTF-8',errors='strict')
+        elif('Mining' in tag):
+            return 'mining'.encode(encoding='UTF-8',errors='strict')
+        elif('Retail' in tag):
+            return 'retail'.encode(encoding='UTF-8',errors='strict')
+        elif('Construction' in tag):
+            return 'construction'.encode(encoding='UTF-8',errors='strict')
+        elif('Wholesale' in tag):
+            return 'wholesale'.encode(encoding='UTF-8',errors='strict')
+        elif('Real Estate' in tag):
+            return 'real_estate'.encode(encoding='UTF-8',errors='strict')
 
